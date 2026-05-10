@@ -27,8 +27,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/organizations', (req, res) => {
-  const title = 'organization';
-  res.render('organization',{title});
+  const title = 'organisation';
+  res.render('organisation',{title});
 });
 
 app.get('/projects', (req, res) => {
