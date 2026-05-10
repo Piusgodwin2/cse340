@@ -22,15 +22,18 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src/views/home.html'));
+  const title = 'home';
+  res.render('home',{title});
 });
 
 app.get('/organizations', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src/views/organisation.html'));
+  const title = 'organization';
+  res.render('organization',{title});
 });
 
 app.get('/projects', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src/views/projects.html'));
+const title = 'projects';
+  res.render('projects',{title});
 });
 
 app.listen(PORT, () => {
