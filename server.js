@@ -1,42 +1,48 @@
 import express from 'express';
-
 import { fileURLToPath } from 'url';
 import path from 'path';
 
-// Define the the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define the port number the server will listen on
 const PORT = process.env.PORT || 3000;
+
 
 const app = express();
 
-/**
-  * Configure Express middleware
-  */
+// set ejs as the view engine
 
-// Serve static files from the public directory
+app.set('view engine', 'ejs');
+/**
+ * Serve Static files from public directory 
+ */
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  const title = 'home';
-  res.render('home',{title});
+/**
+ * Routes
+ */
+app.get('/',(req, res) => {
+    const title = 'Home';
+    res.render('home', { title });
 });
 
 app.get('/organizations', (req, res) => {
-  const title = 'organisation';
-  res.render('organisation',{title});
+    const title = 'organizations';
+    res.render('organizations', { title });
 });
 
-app.get('/projects', (req, res) => {
-const title = 'projects';
-  res.render('projects',{title});
+app.get('/projects',(req, res) => {
+    const title = 'projects';
+    res.render('projects', { title });
 });
 
+
+
+/**
+ * Server
+ */
 app.listen(PORT, () => {
-  console.log(`Server is running at http://127.0.0.1:${PORT}`);
-  console.log(`Environment: ${NODE_ENV}`);
+    console.log(`Server running at http://127.0.0.1:${PORT}`);
 });
