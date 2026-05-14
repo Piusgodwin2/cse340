@@ -14,26 +14,33 @@ const app = express();
 
 // set ejs as the view engine
 
-app.set('view engine', 'ejs');
 /**
  * Serve Static files from public directory 
  */
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Set EJS as the templating engine
+app.set('view engine', 'ejs');
+
+// Tell Express where to find your templates
+app.set('views', path.join(__dirname, 'src/views'));
+
+
+
 /**
  * Routes
  */
-app.get('/',(req, res) => {
+app.get('/',async(req, res) => {
     const title = 'Home';
     res.render('home', { title });
 });
 
-app.get('/organizations', (req, res) => {
+app.get('/organizations',async (req, res) => {
     const title = 'organizations';
     res.render('organizations', { title });
 });
 
-app.get('/projects',(req, res) => {
+app.get('/projects', async(req, res) => {
     const title = 'projects';
     res.render('projects', { title });
 });
