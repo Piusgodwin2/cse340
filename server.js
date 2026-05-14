@@ -9,43 +9,36 @@ const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3000;
 
-
 const app = express();
 
-// set ejs as the view engine
-
 /**
- * Serve Static files from public directory 
+ * Serve static files
  */
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Set EJS as the templating engine
+/**
+ * Set EJS
+ */
 app.set('view engine', 'ejs');
-
-// Tell Express where to find your templates
 app.set('views', path.join(__dirname, 'src/views'));
-
-
 
 /**
  * Routes
  */
-app.get('/',async(req, res) => {
+app.get('/', async (req, res) => {
     const title = 'Home';
     res.render('home', { title });
 });
 
-app.get('/organizations',async (req, res) => {
-    const title = 'organizations';
+app.get('/organizations', async (req, res) => {
+    const title = 'Organizations';
     res.render('organizations', { title });
 });
 
-app.get('/projects', async(req, res) => {
-    const title = 'projects';
+app.get('/projects', async (req, res) => {
+    const title = 'Projects';
     res.render('projects', { title });
 });
-
-
 
 /**
  * Server
