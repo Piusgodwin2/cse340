@@ -54,9 +54,11 @@ nav a {
     transition: color 0.3s ease;
 }
 
+/* FIX: Improved hover accessibility contrast */
 nav a:hover,
 nav a:focus {
-    color: #60a5fa;
+    color: #ffffff;
+    text-decoration: underline;
     outline: none;
 }
 
@@ -85,7 +87,7 @@ h1 {
 p {
     margin-bottom: 1rem;
     font-size: 1rem;
-    color: #444;
+    color: #2f2f2f; /* FIX: darker for accessibility */
 }
 
 /* =========================
@@ -94,25 +96,13 @@ p {
 
 ul {
     padding-left: 1.5rem;
-}
-
-main ul li {
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
-    color: #333;
-}
-
-/* =========================
-   Organizations Page Styles
-========================= */
-
-ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-ul li {
+/* FIX: merged + improved contrast */
+main ul li {
     background-color: #ffffff;
     margin-bottom: 1rem;
     padding: 1rem;
@@ -121,6 +111,8 @@ ul li {
     align-items: center;
     gap: 1rem;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    font-size: 1rem;
+    color: #1f2937; /* FIX: darker text */
 }
 
 /* Organization images */
@@ -140,23 +132,17 @@ ul li strong {
     margin-bottom: 3px;
 }
 
-/* Email text */
-ul li {
-    font-size: 0.95rem;
-    color: #444;
-}
-
 /* =========================
    Footer
 ========================= */
 
 footer {
     background-color: #0f172a;
-    color: #ffffff;
+    color: #f8fafc; /* FIX: improved contrast */
     text-align: center;
     padding: 1rem;
     margin-top: auto;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 /* =========================
