@@ -37,7 +37,7 @@ app.get('/', async (req, res) => {
 
 app.get('/organizations', async (req, res) => {
     const organizations = await getAllOrganizations();
-    console.log(organizations);
+    console.log('Organizations:', organizations);
     
     const title = 'Organizations';
     res.render('organizations', { title });
