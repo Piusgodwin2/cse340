@@ -1,0 +1,63 @@
+-- ========================================
+-- Organization Table
+-- ========================================
+CREATE TABLE organization (
+    organization_id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    description TEXT NOT NULL,
+    contact_email VARCHAR(255) NOT NULL,
+    logo_filename VARCHAR(255) NOT NULL
+);
+
+
+-- ========================================
+-- Insert sample data: Organizations
+-- ========================================
+INSERT INTO organization (name, description, contact_email, logo_filename)
+VALUES
+('BrightFuture Builders', 'A nonprofit focused on improving community infrastructure through sustainable construction projects.', 'info@brightfuturebuilders.org', 'brightfuture-logo.png'),
+('GreenHarvest Growers', 'An urban farming collective promoting food sustainability and education in local neighborhoods.', 'contact@greenharvest.org', 'greenharvest-logo.png'),
+('UnityServe Volunteers', 'A volunteer coordination group supporting local charities and service initiatives.', 'hello@unityserve.org', 'unityserve-logo.png');
+
+
+-- ============================================================
+-- CATEGORIES TABLE
+-- Each category has a unique ID and name
+-- ============================================================
+CREATE TABLE IF NOT EXISTS categories (
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE  -- UNIQUE ensures no duplicate category names
+);
+
+-- ============================================================
+-- JUNCTION TABLE: project_categories
+-- Resolves the many-to-many relationship between
+-- service_projects and categories
+-- ============================================================
+CREATE TABLE IF NOT EXISTS project_categories (
+    project_id  INT NOT NULL REFERENCES service_projects(id) ON DELETE CASCADE,
+    category_id INT NOT NULL REFERENCES categories(id)       ON DELETE CASCADE,
+    PRIMARY KEY (project_id, category_id)  -- composite key prevents duplicate pairings
+);
+
+-- ============================================================
+-- Step 4: Insert at least 3 categories
+-- ============================================================
+INSERT INTO categories (name) VALUES
+    ('Environmental'),
+    ('Education & Tutoring'),
+    ('Community Outreach'),
+    ('Food Security'),
+    ('Health & Wellness');
+
+-- ============================================================
+-- Step 5: Associate each project with at least one category
+-- Adjust project IDs to match what's already in your database
+-- ============================================================
+INSERT INTO project_categories (project_id, category_id) VALUES
+    (1, 1),  -- Project 1 → Environmental
+    (1, 3),  -- Project 1 → Community Outreach (belongs to 2 categories)
+    (2, 2),  -- Project 2 → Education & Tutoring
+    (3, 4),  -- Project 3 → Food Security
+    (3, 3),  -- Project 3 → Community Outreach
+    (4, 5);  -- Project 4 → Health & Wellness
