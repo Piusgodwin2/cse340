@@ -61,3 +61,18 @@ INSERT INTO project_categories (project_id, category_id) VALUES
     (3, 4),  -- Project 3 → Food Security
     (3, 3),  -- Project 3 → Community Outreach
     (4, 5);  -- Project 4 → Health & Wellness
+
+	-- Create the projects table
+CREATE TABLE projects (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Populate projects with data
+INSERT INTO projects (name, description) VALUES ('Park Cleanup', 'Join us to clean up local parks and make them beautiful!');
+INSERT INTO projects (name, description) VALUES ('Food Drive', 'Help collect and distribute food to those in need.');
+INSERT INTO projects (name, description) VALUES ('Community Tutoring', 'Volunteer to tutor students in various subjects.');
+
+SELECT * FROM projects
