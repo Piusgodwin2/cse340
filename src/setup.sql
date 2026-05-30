@@ -67,12 +67,13 @@ CREATE TABLE projects (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
+    organization_id INT,
+    location VARCHAR(255),
+    date DATE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Populate projects with data
-INSERT INTO projects (name, description) VALUES ('Park Cleanup', 'Join us to clean up local parks and make them beautiful!');
-INSERT INTO projects (name, description) VALUES ('Food Drive', 'Help collect and distribute food to those in need.');
-INSERT INTO projects (name, description) VALUES ('Community Tutoring', 'Volunteer to tutor students in various subjects.');
-
-SELECT * FROM projects
+INSERT INTO projects (name, description, organization_id, location, date) VALUES ('Park Cleanup', 'Join us to clean up local parks and make them beautiful!', 1, 'Central Park', '2026-06-15');
+INSERT INTO projects (name, description, organization_id, location, date) VALUES ('Food Drive', 'Help collect and distribute food to those in need.', 2, 'Community Center', '2026-06-20');
+INSERT INTO projects (name, description, organization_id, location, date) VALUES ('Community Tutoring', 'Volunteer to tutor students in various subjects.', 3, 'Public Library', '2026-06-25');
