@@ -78,4 +78,4 @@ INSERT INTO projects (name, description, organization_id, location, date) VALUES
 INSERT INTO projects (name, description, organization_id, location, date) VALUES ('Food Drive', 'Help collect and distribute food to those in need.', 2, 'Community Center', '2026-06-20');
 INSERT INTO projects (name, description, organization_id, location, date) VALUES ('Community Tutoring', 'Volunteer to tutor students in various subjects.', 3, 'Public Library', '2026-06-25');
 
-select * from projects
+select * from 
