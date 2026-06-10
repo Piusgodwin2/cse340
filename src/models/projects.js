@@ -36,7 +36,6 @@ const getProjectsByCategoryId = async (categoryId) => {
         FROM projects p
         JOIN project_categories pc ON p.id = pc.project_id
         WHERE pc.category_id = $1
-        ORDER BY p.date;
     `;
     const queryParams = [categoryId];
     const result = await db.query(query, queryParams);
