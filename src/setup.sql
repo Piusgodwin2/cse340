@@ -30,17 +30,6 @@ CREATE TABLE IF NOT EXISTS categories (
 );
 
 -- ============================================================
--- JUNCTION TABLE: project_categories
--- Resolves the many-to-many relationship between
--- service_projects and categories
--- ============================================================
-CREATE TABLE IF NOT EXISTS project_categories (
-    project_id  INT NOT NULL REFERENCES service_projects(id) ON DELETE CASCADE,
-    category_id INT NOT NULL REFERENCES categories(id)       ON DELETE CASCADE,
-    PRIMARY KEY (project_id, category_id)  -- composite key prevents duplicate pairings
-);
-
--- ============================================================
 -- Step 4: Insert at least 3 categories
 -- ============================================================
 INSERT INTO categories (name) VALUES
@@ -49,18 +38,6 @@ INSERT INTO categories (name) VALUES
     ('Community Outreach'),
     ('Food Security'),
     ('Health & Wellness');
-
--- ============================================================
--- Step 5: Associate each project with at least one category
--- Adjust project IDs to match what's already in your database
--- ============================================================
-INSERT INTO project_categories (project_id, category_id) VALUES
-    (1, 1),  -- Project 1 → Environmental
-    (1, 3),  -- Project 1 → Community Outreach (belongs to 2 categories)
-    (2, 2),  -- Project 2 → Education & Tutoring
-    (3, 4),  -- Project 3 → Food Security
-    (3, 3),  -- Project 3 → Community Outreach
-    (4, 5);  -- Project 4 → Health & Wellness
 
 	-- Create the projects table
 CREATE TABLE projects (
@@ -99,3 +76,31 @@ ALTER TABLE projects
 ADD CONSTRAINT fk_organization
 FOREIGN KEY (organization_id)
 REFERENCES organization(organization_id);
+
+-- ============================================================
+-- JUNCTION TABLE: project_categories
+-- Resolves the many-to-many relationship between
+-- service_projects and categories
+-- ============================================================
+CREATE TABLE IF NOT EXISTS project_categories (
+    project_id  INT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+    category_id INT NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+    PRIMARY KEY (project_id, category_id)
+);
+INSERT INTO project_categories (project_id, category_id) VALUES
+    (1, 1),  -- Park Cleanup → Environmental
+    (1, 3),  -- Park Cleanup → Community Outreach
+    (2, 4),  -- Food Drive → Food Security
+    (2, 3),  -- Food Drive → Community Outreach
+    (3, 2),  -- Community Tutoring → Education & Tutoring
+    (3, 3);  -- Community Tutoring → Community Outreach
+
+	SELECT 
+    pc.project_id,
+    p.name AS project_name,
+    pc.category_id,
+    c.name AS category_name
+FROM project_categories pc
+JOIN projects p ON pc.project_id = p.id
+JOIN categories c ON pc.category_id = c.id
+ORDER BY pc.project_id;

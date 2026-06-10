@@ -32,8 +32,7 @@ const getProjectsByCategoryId = async (categoryId) => {
             p.id AS project_id,
             p.name,
             p.description,
-            p.location,
-            p.date
+            p.location
         FROM projects p
         JOIN project_categories pc ON p.id = pc.project_id
         WHERE pc.category_id = $1
@@ -52,7 +51,6 @@ const getProjectById = async (projectId) => {
             name,
             description,
             location,
-            date,
             organization_id
         FROM projects
         WHERE id = $1;
