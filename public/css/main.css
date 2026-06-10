@@ -132,6 +132,11 @@ ul li strong {
     margin-bottom: 3px;
 }
 
+.org-logo {
+    max-width: 100px;
+    height: auto;
+}
+
 /* =========================
    Footer
 ========================= */

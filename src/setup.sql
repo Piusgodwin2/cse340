@@ -78,4 +78,24 @@ INSERT INTO projects (name, description, organization_id, location, date) VALUES
 INSERT INTO projects (name, description, organization_id, location, date) VALUES ('Food Drive', 'Help collect and distribute food to those in need.', 2, 'Community Center', '2026-06-20');
 INSERT INTO projects (name, description, organization_id, location, date) VALUES ('Community Tutoring', 'Volunteer to tutor students in various subjects.', 3, 'Public Library', '2026-06-25');
 
-select * from 
+ALTER TABLE projects
+ADD COLUMN location VARCHAR(255);
+
+SELECT id, name, location, description,organization_id FROM public.projects ORDER BY name;
+
+UPDATE projects SET location = 'Lagos, Nigeria' WHERE id = 1;
+UPDATE projects SET location = 'Abuja, Nigeria' WHERE id = 2;
+UPDATE projects SET location = 'Port Harcourt, Nigeria' WHERE id = 3;
+
+update projects set organization_id = 1 where id = 4;
+update projects set organization_id = 2 where id = 5;
+update projects set organization_id = 3 where id = 6;
+SELECT organization_id, name FROM organization;
+
+ALTER TABLE projects
+ADD COLUMN organization_id INT;
+
+ALTER TABLE projects
+ADD CONSTRAINT fk_organization
+FOREIGN KEY (organization_id)
+REFERENCES organization(organization_id);
