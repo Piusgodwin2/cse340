@@ -95,12 +95,6 @@ INSERT INTO project_categories (project_id, category_id) VALUES
     (3, 2),  -- Community Tutoring → Education & Tutoring
     (3, 3);  -- Community Tutoring → Community Outreach
 
-	SELECT 
-    pc.project_id,
-    p.name AS project_name,
-    pc.category_id,
-    c.name AS category_name
-FROM project_categories pc
-JOIN projects p ON pc.project_id = p.id
-JOIN categories c ON pc.category_id = c.id
-ORDER BY pc.project_id;
+SELECT column_name 
+FROM information_schema.columns 
+WHERE table_name = 'projects';
