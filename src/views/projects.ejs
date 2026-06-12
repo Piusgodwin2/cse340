@@ -1,13 +1,13 @@
 <%- include('partials/header') %>
-
 <main>
     <h1><%= title %></h1>
-   <h2>Upcoming Service Projects</h2>
-<ul>
-    <% projects.forEach(project => { %>
-        <li><%= project.name %> - <%= project.description %></li>
-    <% }); %>
-</ul>
+    <h2>Upcoming Service Projects</h2>
+    <ul>
+        <% projects.forEach(project => { %>
+            <li>
+                <a href="/project/<%= project.id %>"><%= project.name %></a> - <%= project.description %>
+            </li>
+        <% }); %>
+    </ul>
 </main>
-
 <%- include('partials/footer') %>
