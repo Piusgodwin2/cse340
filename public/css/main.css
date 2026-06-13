@@ -165,6 +165,84 @@ ul li strong {
     border-color: #bee5eb;
 }
 
+/*====
+New-organization form styles
+====*/
+
+/* Page layout */
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+/* Form styling */
+.org-form {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Input groups */
+.form-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Focus effect */
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 5px rgba(74,144,226,0.3);
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #357ab8;
+}
+
 /* =========================
    Footer
 ========================= */

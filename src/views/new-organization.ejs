@@ -1,37 +1,28 @@
-<%- include('partials/header') %>
-<main>
-    <h1><%= title %></h1>
+<%- include('partials/header') %> 
 
- <form action="/new-organization" method="POST">
-    <div class="form-group">
-      <label for="name">Organization Name</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        placeholder="Firstbank Plc"
-      />
-    </div>
+<main class="form-container">
+    <h1 class="page-title"><%= title %></h1>
 
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea
-        id="description"
-        name="description"
-      ></textarea>
-    </div>
+    <form class="org-form" action="/new-organization" method="POST">
 
-    <div class="form-group">
-      <label for="contactEmail">Contact Email</label>
-      <input
-        type="text"
-        id="contactEmail"
-        name="contactEmail"
-      />
-    </div>
+        <div class="form-group">
+            <label for="name">Organization Name</label>
+            <input type="text" id="name" name="name" placeholder="Firstbank Plc" />
+        </div>
 
-    <button type="submit">Create Organization</button>
-  </form>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" placeholder="Brief description..."></textarea>
+        </div>
 
+        <div class="form-group">
+            <label for="contactEmail">Contact Email</label>
+            <input type="email" id="contactEmail" name="contactEmail" placeholder="example@email.com" />
+        </div>
+
+        <button type="submit">Create Organization</button>
+
+    </form>
 </main>
+
 <%- include('partials/footer') %>
