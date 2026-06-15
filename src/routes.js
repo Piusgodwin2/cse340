@@ -9,8 +9,7 @@ import { showProjectsPage, showProjectDetailsPage,showNewProjectForm, processNew
 import { showCategoriesPage, showCategoryDetailsPage, showNewCategoryForm, processNewCategoryForm, 
     showEditCategoryForm, processEditCategoryForm, categoryValidation } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
-import { showUserRegistrationForm, processUserRegistrationForm } from './controllers/users.js';
-
+import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout } from './controllers/users.js';
 const router = express.Router();
 
 router.get('/', showHomePage);
@@ -40,6 +39,11 @@ router.post('/new-project', projectValidation, processNewProjectForm);
 // User registration routes
 router.get('/register', showUserRegistrationForm);
 router.post('/register', processUserRegistrationForm);
+
+// User login routes
+router.get('/login', showLoginForm);
+router.post('/login', processLoginForm);
+router.get('/logout', processLogout);
 
 
 
