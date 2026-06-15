@@ -95,6 +95,29 @@ INSERT INTO project_categories (project_id, category_id) VALUES
     (3, 2),  -- Community Tutoring → Education & Tutoring
     (3, 3);  -- Community Tutoring → Community Outreach
 
+
+-- Roles table
+CREATE TABLE roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL,
+    role_description TEXT
+);
+
+-- Initial roles
+INSERT INTO roles (role_name, role_description) VALUES
+('user', 'Standard user with basic access'),
+('admin', 'Administrator with full system access');
+
+-- Users table
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role_id INTEGER REFERENCES roles(role_id),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 SELECT column_name 
 FROM information_schema.columns 
 WHERE table_name = 'projects';
