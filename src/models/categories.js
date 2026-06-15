@@ -23,4 +23,28 @@ const getCategoryById = async (categoryId) => {
     return result.rows.length > 0 ? result.rows[0] : null;
 };
 
-export {getAllCategories, getCategoryById}
+
+const createCategory = async (name) => {
+    const query = `
+        INSERT INTO categories (name)
+        VALUES ($1)
+        RETURNING id;
+    `;
+    const queryParams = [name];
+    const result = await db.query(query, queryParams);
+    return result.rows[0].id;
+};
+
+const updateCategory = async (categoryId, name) => {
+    const query = `
+        UPDATE categories
+        SET name = $1
+        WHERE id = $2;
+    `;
+    const queryParams = [name, categoryId];
+    await db.query(query, queryParams);
+};
+
+export {getAllCategories, getCategoryById,
+    createCategory, updateCategory
+}
