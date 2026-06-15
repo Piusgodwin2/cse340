@@ -9,7 +9,15 @@ import { showProjectsPage, showProjectDetailsPage,showNewProjectForm, processNew
 import { showCategoriesPage, showCategoryDetailsPage, showNewCategoryForm, processNewCategoryForm, 
     showEditCategoryForm, processEditCategoryForm, categoryValidation } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
-import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout } from './controllers/users.js';
+import { 
+    showUserRegistrationForm, 
+    processUserRegistrationForm, 
+    showLoginForm, 
+    processLoginForm, 
+    processLogout,
+    requireLogin,
+    showDashboard
+} from './controllers/users.js';
 const router = express.Router();
 
 router.get('/', showHomePage);
