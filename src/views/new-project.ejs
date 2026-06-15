@@ -1,0 +1,188 @@
+<%- include('partials/header') %>
+<main>
+    <h1><%= title %></h1>
+
+    <form action="/new-project" method="POST" id="new-project-form" novalidate>
+
+      <div class="form-group">
+        <label for="title">Project Title</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          minlength="3"
+          maxlength="150"
+          required
+        />
+        <span class="field-error" id="title-error"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          minlength="10"
+          maxlength="500"
+          required
+        ></textarea>
+        <span class="field-error" id="description-error"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input
+          type="text"
+          id="location"
+          name="location"
+          minlength="2"
+          maxlength="255"
+          required
+        />
+        <span class="field-error" id="location-error"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          required
+        />
+        <span class="field-error" id="date-error"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="organizationId">Organization</label>
+        <select
+          id="organizationId"
+          name="organizationId"
+          required
+        >
+          <option value="">Select an organization</option>
+          <% organizations.forEach(org => { %>
+            <option value="<%= org.organization_id %>"><%= org.name %></option>
+          <% }); %>
+        </select>
+        <span class="field-error" id="organizationId-error"></span>
+      </div>
+
+      <button type="submit">Create Project</button>
+
+    </form>
+</main>
+
+<script>
+  (function () {
+    const form = document.getElementById('new-project-form');
+
+    // Field rules: [id, label, extra checks]
+    const fields = [
+      { id: 'title',          label: 'Project Title',  minlength: 3,  maxlength: 150 },
+      { id: 'description',    label: 'Description',    minlength: 10, maxlength: 500 },
+      { id: 'location',       label: 'Location',       minlength: 2,  maxlength: 255 },
+      { id: 'date',           label: 'Date',           type: 'date' },
+      { id: 'organizationId', label: 'Organization',   type: 'select' },
+    ];
+
+    function showError(id, message) {
+      const el = document.getElementById(id + '-error');
+      const input = document.getElementById(id);
+      if (el) el.textContent = message;
+      if (input) input.setAttribute('aria-invalid', 'true');
+    }
+
+    function clearError(id) {
+      const el = document.getElementById(id + '-error');
+      const input = document.getElementById(id);
+      if (el) el.textContent = '';
+      if (input) input.removeAttribute('aria-invalid');
+    }
+
+    function validateField(field) {
+      const input = document.getElementById(field.id);
+      const value = input.value.trim();
+
+      // Required check
+      if (!value) {
+        showError(field.id, `${field.label} is required.`);
+        return false;
+      }
+
+      // minlength check
+      if (field.minlength && value.length < field.minlength) {
+        showError(field.id, `${field.label} must be at least ${field.minlength} characters.`);
+        return false;
+      }
+
+      // maxlength check (belt-and-suspenders beyond the HTML attr)
+      if (field.maxlength && value.length > field.maxlength) {
+        showError(field.id, `${field.label} must not exceed ${field.maxlength} characters.`);
+        return false;
+      }
+
+      // Date: must not be more than 10 years in the past or 5 years in the future
+      if (field.type === 'date') {
+        const chosen = new Date(value);
+        const now = new Date();
+        const tenYearsAgo = new Date();
+        tenYearsAgo.setFullYear(now.getFullYear() - 10);
+        const fiveYearsAhead = new Date();
+        fiveYearsAhead.setFullYear(now.getFullYear() + 5);
+
+        if (isNaN(chosen.getTime())) {
+          showError(field.id, 'Please enter a valid date.');
+          return false;
+        }
+        if (chosen < tenYearsAgo) {
+          showError(field.id, 'Date must not be more than 10 years in the past.');
+          return false;
+        }
+        if (chosen > fiveYearsAhead) {
+          showError(field.id, 'Date must not be more than 5 years in the future.');
+          return false;
+        }
+      }
+
+      clearError(field.id);
+      return true;
+    }
+
+    // Live validation on blur for each field
+    fields.forEach(function (field) {
+      const input = document.getElementById(field.id);
+      if (input) {
+        input.addEventListener('blur', function () {
+          validateField(field);
+        });
+        input.addEventListener('input', function () {
+          // Clear error as user types after a failed validation
+          if (input.getAttribute('aria-invalid') === 'true') {
+            validateField(field);
+          }
+        });
+      }
+    });
+
+    // Full validation on submit
+    form.addEventListener('submit', function (e) {
+      let isValid = true;
+
+      fields.forEach(function (field) {
+        if (!validateField(field)) {
+          isValid = false;
+        }
+      });
+
+      if (!isValid) {
+        e.preventDefault();
+        // Scroll to the first error
+        const firstError = form.querySelector('[aria-invalid="true"]');
+        if (firstError) firstError.focus();
+      }
+    });
+  })();
+</script>
+
+<%- include('partials/footer') %>
