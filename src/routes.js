@@ -28,23 +28,23 @@ router.get('/projects', showProjectsPage);
 router.get('/project/:id', showProjectDetailsPage);
 router.get('/categories', showCategoriesPage);
 router.get('/category/:id', showCategoryDetailsPage);
-router.get('/new-category',requireLogin('admin'), showNewCategoryForm);
-router.post('/new-category',requireLogin('admin'), categoryValidation, processNewCategoryForm);
-router.get('/edit-category/:id',requireLogin('admin'), showEditCategoryForm);
-router.post('/edit-category/:id',requireLogin('admin'), categoryValidation, processEditCategoryForm);
-router.get('/new-organization',requireLogin('admin'), showNewOrganizationform);
+router.get('/new-category',requireRole('admin'), showNewCategoryForm);
+router.post('/new-category',requireRole('admin'), categoryValidation, processNewCategoryForm);
+router.get('/edit-category/:id',requireRole('admin'), showEditCategoryForm);
+router.post('/edit-category/:id',requireRole('admin'), categoryValidation, processEditCategoryForm);
+router.get('/new-organization',requireRole('admin'), showNewOrganizationform);
 // Route to display the edit organization form
-router.get('/edit-organization/:id',requireLogin('admin'), showEditOrganizationForm);
+router.get('/edit-organization/:id',requireRole('admin'), showEditOrganizationForm);
 // Route to handle the edit organization form submission
-router.post('/edit-organization/:id',requireLogin('admin'), organizationValidation, processEditOrganizationForm);
+router.post('/edit-organization/:id',requireRole('admin'), organizationValidation, processEditOrganizationForm);
 // Route to handle new organization form submission
-router.post('/new-organization',requireLogin('admin'), organizationValidation, processNewOrganizationForm);
+router.post('/new-organization',requireRole('admin'), organizationValidation, processNewOrganizationForm);
 // Route to handle the edit organization form submission
 // Route for new project page
-router.get('/new-project', requireLogin('admin'), showNewProjectForm);
+router.get('/new-project', requireRole('admin'), showNewProjectForm);
 
 // Route to handle new project form submission
-router.post('/new-project', requireLogin('admin'), projectValidation, processNewProjectForm);
+router.post('/new-project', requireRole('admin'), projectValidation, processNewProjectForm);
 // User registration routes
 router.get('/register', showUserRegistrationForm);
 router.post('/register', processUserRegistrationForm);
