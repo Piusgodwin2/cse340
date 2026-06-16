@@ -118,6 +118,12 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-SELECT column_name 
-FROM information_schema.columns 
-WHERE table_name = 'projects';
+-- Check current users and roles
+SELECT * FROM users;
+SELECT * FROM roles;
+
+-- Update admin account's role
+UPDATE users SET role_id = (SELECT role_id FROM roles WHERE role_name = 'admin') WHERE email = 'admin@example.com';
+
+-- Verify
+SELECT users.user_id, users.email, roles.role_name FROM users JOIN roles ON users.role_id = roles.role_id;

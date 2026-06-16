@@ -16,7 +16,8 @@ import {
     processLoginForm, 
     processLogout,
     requireLogin,
-    showDashboard
+    showDashboard,
+    requireRole
 } from './controllers/users.js';
 const router = express.Router();
 
@@ -27,23 +28,23 @@ router.get('/projects', showProjectsPage);
 router.get('/project/:id', showProjectDetailsPage);
 router.get('/categories', showCategoriesPage);
 router.get('/category/:id', showCategoryDetailsPage);
-router.get('/new-category', showNewCategoryForm);
-router.post('/new-category', categoryValidation, processNewCategoryForm);
-router.get('/edit-category/:id', showEditCategoryForm);
-router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
-router.get('/new-organization', showNewOrganizationform);
+router.get('/new-category',requireLogin('admin'), showNewCategoryForm);
+router.post('/new-category',requireLogin('admin'), categoryValidation, processNewCategoryForm);
+router.get('/edit-category/:id',requireLogin('admin'), showEditCategoryForm);
+router.post('/edit-category/:id',requireLogin('admin'), categoryValidation, processEditCategoryForm);
+router.get('/new-organization',requireLogin('admin'), showNewOrganizationform);
 // Route to display the edit organization form
-router.get('/edit-organization/:id', showEditOrganizationForm);
+router.get('/edit-organization/:id',requireLogin('admin'), showEditOrganizationForm);
 // Route to handle the edit organization form submission
-router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
+router.post('/edit-organization/:id',requireLogin('admin'), organizationValidation, processEditOrganizationForm);
 // Route to handle new organization form submission
-router.post('/new-organization', organizationValidation, processNewOrganizationForm);
+router.post('/new-organization',requireLogin('admin'), organizationValidation, processNewOrganizationForm);
 // Route to handle the edit organization form submission
 // Route for new project page
-router.get('/new-project', showNewProjectForm);
+router.get('/new-project', requireLogin('admin'), showNewProjectForm);
 
 // Route to handle new project form submission
-router.post('/new-project', projectValidation, processNewProjectForm);
+router.post('/new-project', requireLogin('admin'), projectValidation, processNewProjectForm);
 // User registration routes
 router.get('/register', showUserRegistrationForm);
 router.post('/register', processUserRegistrationForm);
