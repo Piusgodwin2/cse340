@@ -17,7 +17,8 @@ import {
     processLogout,
     requireLogin,
     showDashboard,
-    requireRole
+    requireRole,
+    showUsersPage
 } from './controllers/users.js';
 const router = express.Router();
 
@@ -48,6 +49,8 @@ router.post('/new-project', requireRole('admin'), projectValidation, processNewP
 // User registration routes
 router.get('/register', showUserRegistrationForm);
 router.post('/register', processUserRegistrationForm);
+
+router.get('/users', requireRole('admin'), showUsersPage);
 
 // User login routes
 router.get('/login', showLoginForm);
